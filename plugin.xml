@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-        id="cordova-plugin-x-toast"
-        version="2.7.2">
+        id="cordova-plugin-toast-b3t"
+        version="2.7.3">
 
-  <name>Toast</name>
+  <name>Cordova Toast</name>
 
   <description>
     This plugin allows you to show a Toast.
     A Toast is a little non intrusive buttonless popup which automatically disappears.
   </description>
 
-  <author>Eddy Verbruggen</author>
+  <author>Brian Nguyen</author>
 
   <license>MIT</license>
 
   <keywords>Toast, Notification, Message, Alert</keywords>
 
-  <repo>https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git</repo>
+  <repo>https://github.com/brian3t/toast_cordova_plugin</repo>
 
-  <issue>https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin/issues</issue>
+  <issue>https://github.com/brian3t/toast_cordova_plugin/issues</issue>
 
   <engines>
-    <engine name="cordova" version=">=3.0.0"/>
+    <engine name="cordova" version=">=9.0.0"/>
   </engines>
 
   <js-module src="www/Toast.js" name="Toast">
@@ -66,15 +66,6 @@
     </config-file>
 
     <source-file src="src/wp8/Toast.cs" />
-  </platform>
-
-  <platform name="blackberry10">
-    <source-file src="src/blackberry10/index.js" target-dir="Toast"/>
-      <lib-file src="src/blackberry10/native/device/libToast.so" arch="device"/>
-      <lib-file src="src/blackberry10/native/simulator/libToast.so" arch="simulator"/>
-      <config-file target="www/config.xml" parent="/widget">
-        <feature name="Toast" value="Toast" />
-      </config-file>
   </platform>
 
   <!-- windows -->
