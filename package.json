@@ -8,7 +8,7 @@
       "ios",
       "android",
       "wp8",
-      "windows",
+      "windows"
     ]
   },
   "repository": {
@@ -24,7 +24,7 @@
     "cordova-ios",
     "cordova-android",
     "cordova-wp8",
-    "cordova-windows",
+    "cordova-windows"
   ],
   "engines": [
     {
