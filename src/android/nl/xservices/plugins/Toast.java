@@ -37,6 +37,7 @@ public class Toast extends CordovaPlugin {
 
   private static final boolean IS_AT_LEAST_LOLLIPOP = Build.VERSION.SDK_INT >= 21;
   private static final boolean IS_AT_LEAST_PIE = Build.VERSION.SDK_INT >= 28;
+  private static final boolean IS_LESS_THAN_R = Build.VERSION.SDK_INT < 30;
 
   // note that webView.isPaused() is not Xwalk compatible, so tracking it poor-man style
   private boolean isPaused;
@@ -62,10 +63,10 @@ public class Toast extends CordovaPlugin {
       final String msg = options.getString("message");
       final Spannable message = new SpannableString(msg);
       message.setSpan(
-          new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
-          0,
-          msg.length() - 1,
-          Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+              new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+              0,
+              msg.length() - 1,
+              Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
       final String duration = options.getString("duration");
       final String position = options.getString("position");
@@ -88,9 +89,9 @@ public class Toast extends CordovaPlugin {
             hideAfterMs = Integer.parseInt(duration);
           }
           final android.widget.Toast toast = android.widget.Toast.makeText(
-              IS_AT_LEAST_LOLLIPOP ? cordova.getActivity().getWindow().getContext() : cordova.getActivity().getApplicationContext(),
-              message,
-              "short".equalsIgnoreCase(duration) ? android.widget.Toast.LENGTH_SHORT : android.widget.Toast.LENGTH_LONG
+                  IS_AT_LEAST_LOLLIPOP ? cordova.getActivity().getWindow().getContext() : cordova.getActivity().getApplicationContext(),
+                  message,
+                  "short".equalsIgnoreCase(duration) ? android.widget.Toast.LENGTH_SHORT : android.widget.Toast.LENGTH_LONG
           );
 
           if ("top".equals(position)) {
@@ -146,7 +147,11 @@ public class Toast extends CordovaPlugin {
                 if (motionEvent.getAction() != MotionEvent.ACTION_DOWN) {
                   return false;
                 }
-                if (mostRecentToast == null || !mostRecentToast.getView().isShown()) {
+                boolean is_most_rec_toast_shown = false;
+                if (IS_LESS_THAN_R){
+                  is_most_rec_toast_shown = mostRecentToast.getView().isShown();
+                }
+                if (mostRecentToast == null || !is_most_rec_toast_shown) {
                   getViewGroup().setOnTouchListener(null);
                   return false;
                 }
@@ -178,7 +183,7 @@ public class Toast extends CordovaPlugin {
                 float tapY = motionEvent.getY();
 
                 final boolean tapped = tapX >= startX && tapX <= endX &&
-                    tapY >= startY && tapY <= endY;
+                        tapY >= startY && tapY <= endY;
 
                 return tapped && returnTapEvent("touch", msg, data, callbackContext);
               }
